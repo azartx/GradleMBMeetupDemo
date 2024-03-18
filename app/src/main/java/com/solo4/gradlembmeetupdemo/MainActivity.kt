@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     private fun setupGreetingFragment() {
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container_main, GreetingFragment::class.java, null, null)
-            .addToBackStack(GreetingFragment::class.java.name)
             .commit()
     }
 }

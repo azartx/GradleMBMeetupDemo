@@ -8,12 +8,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.solo4.gradlembmeetupdemo.R
 import com.solo4.gradlembmeetupdemo.databinding.FragmentProfileBinding
+import com.solo4.gradlembmeetupdemo.presentation.screens.friends.stubs.friends
 import com.solo4.gradlembmeetupdemo.utils.Route
 import com.solo4.gradlembmeetupdemo.utils.navigate
 
 class ProfileFragment : Fragment() {
 
     private var binding: FragmentProfileBinding? = null
+    private val user = friends.random()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +31,15 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupScreenData()
         setupButtonsListeners()
+    }
+
+    private fun setupScreenData() {
+        binding?.apply {
+            textviewUsername.text = user.fullName
+            textviewUsernameSubtitle.text = user.subtitle
+        }
     }
 
     private fun setupButtonsListeners() {
