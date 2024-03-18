@@ -1,13 +1,17 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    // Подключение созданного плагина в app модуль проекта
     id("strings-parser")
 }
 
+// Расширение, созданное с помощью плагина StringParserPlugin.
+// Даёт доступ к параметру shouldParseOnEachBuild.
 stringsParser {
     shouldParseOnEachBuild = true
 }
 
+// Расширение, полученное из Android Gradle Plugin. Даёт доступ к настройкам AGP.
 android {
     namespace = "com.solo4.gradlembmeetupdemo"
     compileSdk = 34
