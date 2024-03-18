@@ -4,6 +4,10 @@ plugins {
     id("strings-parser")
 }
 
+stringsParser {
+    shouldParseOnEachBuild = true
+}
+
 android {
     namespace = "com.solo4.gradlembmeetupdemo"
     compileSdk = 34
@@ -50,8 +54,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-}
-
-tasks.named("preBuild") {
-    dependsOn(tasks.named("stringsParserTask"))
 }
