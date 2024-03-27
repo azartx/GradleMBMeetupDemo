@@ -64,6 +64,8 @@ tasks.register<Delete>("taskWithDeleteTaskType") {
     group = "AppModuleTasks"
     description = "Delete task type"
 
+    println("Task 1 is configured")
+
     doLast {
         println("Cleanup resources.")
     }
@@ -72,6 +74,8 @@ tasks.register<Delete>("taskWithDeleteTaskType") {
 tasks.register<SimpleTask>("taskWithSimpleTaskType") {
     group = "AppModuleTasks"
     description = "SimpleTask task type"
+
+    println("Task 2 is configured")
 
     doLast {
         println("Done!")
