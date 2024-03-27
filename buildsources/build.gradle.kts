@@ -15,3 +15,22 @@ gradlePlugin {
 dependencies {
     implementation(libs.squareup.moshi)
 }
+
+val taskA by tasks.registering
+val taskB by tasks.registering
+
+abstract class TaskA : DefaultTask() {
+
+    @TaskAction
+    fun doAction() {
+
+    }
+}
+
+abstract class TaskB : DefaultTask() {
+
+    @TaskAction
+    fun doAction() {
+
+    }
+}
