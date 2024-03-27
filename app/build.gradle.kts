@@ -59,3 +59,31 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
+
+tasks.register<Delete>("taskWithDeleteTaskType") {
+    group = "AppModuleTasks"
+    description = "Delete task type"
+
+    doLast {
+        println("Cleanup resources.")
+    }
+}
+
+tasks.register<SimpleTask>("taskWithSimpleTaskType") {
+    group = "AppModuleTasks"
+    description = "SimpleTask task type"
+
+    doLast {
+        println("Done!")
+    }
+
+    finalizedBy(tasks.named("taskWithDeleteTaskType"))
+}
+
+abstract class SimpleTask : DefaultTask() {
+
+    @TaskAction
+    fun doAnyWork() {
+        println("Doing some specific work...")
+    }
+}
