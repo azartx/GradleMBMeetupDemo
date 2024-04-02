@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Gradle MB Meetup demo"
+rootProject.name = "Gradle_MB_Meetup_demo"
 include(":app")
 includeBuild("buildsources")
