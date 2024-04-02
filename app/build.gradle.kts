@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -9,6 +11,10 @@ plugins {
 // Даёт доступ к параметру shouldParseOnEachBuild.
 stringsParser {
     shouldParseOnEachBuild = true
+    authToken = Properties().run {
+        load(layout.projectDirectory.file("/gradle.properties").asFile.inputStream())
+        getProperty("authToken") ?: ""
+    }
 }
 
 // Расширение, полученное из Android Gradle Plugin. Даёт доступ к настройкам AGP.

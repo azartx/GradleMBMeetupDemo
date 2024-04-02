@@ -3,21 +3,18 @@ package com.solo4.buildsources
 import com.solo4.buildsources.extensions.StringsParserExtension
 import com.solo4.buildsources.tasks.DownloadResTask
 import com.solo4.buildsources.tasks.ParseResTask
-import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.plugins.ExtensionContainer
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.register
-import java.util.Properties
 import javax.inject.Inject
 
 private const val PLUGIN_TASKS_GROUP = "StringsParser"
-private const val LOCAL_PROPERTIES_PATH = "../local.properties"
-private const val AUTH_TOKEN_PROPERTY_NAME = "authToken"
 private const val BUILD_STRINGS_FILE_PATH = "/strings.json"
 private const val PROJECT_STRINGS_FILE_PATH = "/src/main/res/values/strings.xml"
 
@@ -28,7 +25,7 @@ class StringsParserPlugin @Inject constructor(
 
     override fun apply(target: Project) {
         val parserExtension = registerParserExtension(target.extensions)
-        createParserTask()
+        createParserTask(parserExtension)
         setupBuildLogic(parserExtension)
     }
 
@@ -37,11 +34,12 @@ class StringsParserPlugin @Inject constructor(
     ): StringsParserExtension {
         return extensions.create<StringsParserExtension>("stringsParser").apply {
             shouldParseOnEachBuild.convention(false)
+            authToken.convention("")
         }
     }
 
-    private fun createParserTask() {
-        registerDownloadStrResTask()
+    private fun createParserTask(extension: StringsParserExtension) {
+        registerDownloadStrResTask(extension.authToken)
         registerParsingTask()
 
         registerStringsParserTask()
@@ -55,11 +53,7 @@ class StringsParserPlugin @Inject constructor(
         }
     }
 
-    private fun registerDownloadStrResTask() {
-        val authToken = Properties().run {
-            load(layout.projectDirectory.file(LOCAL_PROPERTIES_PATH).asFile.inputStream())
-            getProperty(AUTH_TOKEN_PROPERTY_NAME)
-        } ?: throw GradleException("locale.properties should contains $AUTH_TOKEN_PROPERTY_NAME property")
+    private fun registerDownloadStrResTask(authToken: Property<String>) {
         tasks.register<DownloadResTask>("downloadStrResTask", authToken).configure {
             group = PLUGIN_TASKS_GROUP
             description = "Download and save strings.json file into the build folder"

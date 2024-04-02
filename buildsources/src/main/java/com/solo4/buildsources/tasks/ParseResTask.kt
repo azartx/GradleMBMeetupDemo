@@ -20,8 +20,8 @@ abstract class ParseResTask  : DefaultTask() {
     @TaskAction
     fun parseJsonResourcesToXml() {
         saveXmlToValuesFolder(
-            parseStringsMapToResourcesXml(
-                createStringsMapFromJson()
+            stringsXmlContent = parseStringsMapToResourcesXml(
+                stringsMap = createStringsMapFromJson()
             )
         )
     }

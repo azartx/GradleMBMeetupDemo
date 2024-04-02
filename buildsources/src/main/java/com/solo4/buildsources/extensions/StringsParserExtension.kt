@@ -5,4 +5,6 @@ import org.gradle.api.provider.Property
 interface StringsParserExtension {
 
     val shouldParseOnEachBuild: Property<Boolean>
+
+    val authToken: Property<String>
 }
