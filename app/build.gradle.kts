@@ -8,7 +8,7 @@ plugins {
 }
 
 // Расширение, созданное с помощью плагина StringParserPlugin.
-// Даёт доступ к параметру shouldParseOnEachBuild.
+// Даёт доступ к параметрам интерфейса StringsParserExtension
 stringsParser {
     shouldParseOnEachBuild = true
     authToken = Properties().run {
